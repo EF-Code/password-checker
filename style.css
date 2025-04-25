@@ -1,27 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+
 h2 {
     font-size: 1.4rem;
     color: #444;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+}
+
+input[type="text"]:read-only {
+    background-color: #f9f9f9;
+    cursor: not-allowed;
+}
+
+button {
+    background-color: #667eea;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #5a67d8;
 }
 
 label {
     display: block;
+    text-align: left;
     margin: 0.25rem 0;
     font-size: 0.95rem;
     color: #333;
 }
 
-input[type="number"] {
-    width: 60px;
-    margin-left: 0.5rem;
-    padding: 0.3rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.3rem;
+#strengthResult {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 #copyMessage {
     font-size: 0.9rem;
     color: green;
     margin-top: 0.3rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        width: 100%;
+    }
 }
