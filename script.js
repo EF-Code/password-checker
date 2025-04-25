@@ -1,31 +1,16 @@
 function checkStrength(password = null) {
     const input = password || document.getElementById("passwordInput").value;
     const result = document.getElementById("strengthResult");
+    const bar = document.getElementById("strengthBar");
 
-    let score = 0;
+    let score = getPasswordScore(input);
 
-    if (input.length >= 8) score++;
-    if (input.length >= 12) score++;
-    if (input.length >= 16) score++;
+    const { label, color, width } = getStrengthVisuals(score);
 
-    if (/[a-z]/.test(input)) score++;
-    if (/[A-Z]/.test(input)) score++;
-    if (/[0-9]/.test(input)) score++;
-    if (/[^A-Za-z0-9]/.test(input)) score++;
-
-    const labels = [
-        "Pathetic", "Very Weak", "Weak", "Moderate",
-        "Strong", "Very Strong", "Uncrackable", "Quantum Resistant", "God Mode"
-    ];
-    const colors = [
-        "darkred", "red", "orangered", "orange",
-        "blue", "green", "darkgreen", "indigo", "gold"
-    ];
-
-    const finalScore = Math.min(score, labels.length - 1);
-
-    result.textContent = `Strength: ${labels[finalScore]}`;
-    result.style.color = colors[finalScore];
+    result.textContent = `Strength: ${label}`;
+    result.style.color = color;
+    bar.style.width = width;
+    bar.style.backgroundColor = color;
 }
 
 function generatePassword() {
@@ -53,17 +38,25 @@ function generatePassword() {
 
     const output = document.getElementById("generatedPassword");
     output.value = password;
-
-    // Show strength for generated password separately
     showGeneratedStrength(password);
 
     document.getElementById("copyMessage").textContent = "Password generated!";
-
 }
 
 function showGeneratedStrength(password) {
     const result = document.getElementById("generatedStrengthResult");
+    const bar = document.getElementById("generatedStrengthBar");
 
+    let score = getPasswordScore(password);
+    const { label, color, width } = getStrengthVisuals(score);
+
+    result.textContent = `Generated Password Strength: ${label}`;
+    result.style.color = color;
+    bar.style.width = width;
+    bar.style.backgroundColor = color;
+}
+
+function getPasswordScore(password) {
     let score = 0;
 
     if (password.length >= 8) score++;
@@ -75,6 +68,10 @@ function showGeneratedStrength(password) {
     if (/[0-9]/.test(password)) score++;
     if (/[^A-Za-z0-9]/.test(password)) score++;
 
+    return Math.min(score, 8);
+}
+
+function getStrengthVisuals(score) {
     const labels = [
         "Pathetic", "Very Weak", "Weak", "Moderate",
         "Strong", "Very Strong", "Uncrackable", "Quantum Resistant", "God Mode"
@@ -83,9 +80,23 @@ function showGeneratedStrength(password) {
         "darkred", "red", "orangered", "orange",
         "blue", "green", "darkgreen", "indigo", "gold"
     ];
+    const widths = ["10%", "20%", "30%", "40%", "55%", "70%", "85%", "95%", "100%"];
 
-    const finalScore = Math.min(score, labels.length - 1);
+    return {
+        label: labels[score],
+        color: colors[score],
+        width: widths[score]
+    };
+}
 
-    result.textContent = `Strength: ${labels[finalScore]}`;
-    result.style.color = colors[finalScore];
+function copyPassword() {
+    const passwordField = document.getElementById("generatedPassword");
+    passwordField.select();
+    passwordField.setSelectionRange(0, 99999); // For mobile
+
+    navigator.clipboard.writeText(passwordField.value).then(() => {
+        document.getElementById("copyMessage").textContent = "Copied to clipboard!";
+    }, () => {
+        document.getElementById("copyMessage").textContent = "Copy failed.";
+    });
 }

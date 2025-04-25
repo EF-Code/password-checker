@@ -110,3 +110,22 @@ label {
         width: 100%;
     }
 }
+
+.progress {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 10px;
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+}
+
+#strengthBar,
+#generatedStrengthBar {
+    height: 100%;
+    width: 0%;
+    background-color: red;
+    border-radius: 10px;
+    transition: width 0.4s ease, background-color 0.4s ease;
+}
